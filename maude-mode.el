@@ -56,25 +56,29 @@
 (define-derived-mode maude-ts-mode prog-mode "Maude"
   (when (treesit-ready-p 'maude)
     (treesit-parser-create 'maude)
-    (maude-ts-setup))
+    (maude-ts-setup)
+    (flymake-mode 1))
   (eglot-ensure))
 
 (add-to-list 'auto-mode-alist '("\\.maude\\'" . maude-ts-mode))
 
 (defun maude-load-file ()
   (interactive)
-  (if (not (buffer-file-name))
-      (message "Buffer has no associated file")
-    (save-buffer)
-    (maude-open-repl)
-    (comint-send-string "*maude*"
-                        (format "in %s .\n" (buffer-file-name)))))
+  (unless (buffer-file-name)
+    (message "Buffer has no associated file")
+    (cl-return-form maude-load-file nil))
+  (progn
+    (let ((file (buffer-file-name)))
+      (save-buffer)
+      (maude-open-repl)
+      (comint-send-string "*maude*"
+                          (format "load %s .\n" file)))))
 
 (defun maude-open-repl ()
   (interactive)
-  (if (get-buffer "*maude")
+  (if (get-buffer "*maude*")
       (unless (get-buffer-process "*maude*")
-        (kill-buffer "*maude")
+        (kill-buffer "*maude*")
         (make-comint "maude" "maude" nil "-interactive"))
     (make-comint "maude" "maude" nil "-interactive"))
   (switch-to-buffer-other-window "*maude*"))
