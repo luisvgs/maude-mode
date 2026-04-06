@@ -12,4 +12,4 @@ This is intended to work in hand with [maude-ts-mode](https://github.com/luisvgs
 * [ ] inline sort/type annotations.
 
 -------
-Made by humans, fuck IA.
+Made by humans, fuck AI.
