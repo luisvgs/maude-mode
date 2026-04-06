@@ -7,8 +7,9 @@ This is intended to work in hand with [maude-ts-mode](https://github.com/luisvgs
 
 * [x] open-repl.
 * [x] load-file.
-* [] rewriting interaction within the REPL.
-* [] kill REPL instanced properly.
-* [] inline sort/type annotations.
+* [ ] rewriting interaction within the REPL.
+* [ ] kill REPL instanced properly.
+* [ ] inline sort/type annotations.
 
-Made by humans, fuck IA
+-------
+Made by humans, fuck IA.
